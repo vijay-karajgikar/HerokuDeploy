@@ -1,0 +1,23 @@
+{
+  "name": "HerokuDeploy",
+  "version": "1.0.0",
+  "description": "Testing the Heroku Deployment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vijay-karajgikar/HerokuDeploy.git"
+  },
+  "author": "Vijay Karajgikar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vijay-karajgikar/HerokuDeploy/issues"
+  },
+  "homepage": "https://github.com/vijay-karajgikar/HerokuDeploy",
+  "dependencies": {
+    "express": "^4.12.2",
+    "jade": "^1.9.2"
+  }
+}
