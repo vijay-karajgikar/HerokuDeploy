@@ -3,6 +3,7 @@ var express = require('express'),
 	logger = require('morgan'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser');
+
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 var app = express();
@@ -26,11 +27,16 @@ app.use(stylus.middleware(
 
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb://localhost:27017/HerokuDeploy');
+if(env === 'development') {
+	mongoose.connect('mongodb://localhost:27017/HerokuDeploy');
+} else {
+	mongoose.connect('mongodb://adminuser:adminuser@ds031601.mongolab.com:31601/vyas');
+}
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error..'));
 db.once('open', function callback() {
-	console.log('HerokuDeploy db opened');
+	console.log(db.name + ' db opened');
 });
 
 var messageSchema = mongoose.Schema( { message: String });
@@ -60,7 +66,7 @@ app.get('*', function(req, res) {
 	});
 });
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 app.listen(port);
 
 console.log('Listening on port ' + port + ' ...');
