@@ -35,8 +35,15 @@ db.once('open', function callback() {
 
 var messageSchema = mongoose.Schema( { message: String });
 var Message = mongoose.model('Message', messageSchema);
-
 var mongoMessage;
+
+var categoriesSchema = mongoose.Schema( { id: String, name: String, description: String });
+var Category = mongoose.model('Category', categoriesSchema);
+var mongoCategory;
+
+Category.findOne().exec(function(err, categoryDoc) {
+	mongoCategory = categoryDoc;
+});
 
 Message.findOne().exec(function(err, messageDoc) {
 	mongoMessage = messageDoc.message;
@@ -48,7 +55,8 @@ app.get('/partials/:partialPath', function(req, res) {
 
 app.get('*', function(req, res) {
 	res.render('index', { 
-		mongoMessage: mongoMessage
+		mongoMessage: mongoMessage,
+		mongoCategory: mongoCategory
 	});
 });
 
